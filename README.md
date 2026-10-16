@@ -5,7 +5,7 @@ A small courier booking system built with a **Laravel 13 REST API** and an **Ang
 Customers book parcels with a live price. A queued job books each parcel with a courier in the background, and every status change is tracked in a history timeline. Admins move shipments through their statuses.
 
 <p align="center">
-  <img src="docs/screenshots/04-dashboard.png" alt="Dashboard" width="900">
+  <img src="docs/04-dashboard.png" alt="Dashboard" width="900">
 </p>
 
 ---
