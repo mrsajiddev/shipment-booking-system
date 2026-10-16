@@ -14,7 +14,7 @@ Customers book parcels with a live price. A queued job books each parcel with a 
 
 | Folder | Stack | Highlights | Docs |
 |--------|-------|------------|------|
-| [`backend/`](backend) | Laravel 13, Sanctum, MySQL | Policies, global/group/route middleware, Form Request validation, a service provider with interface binding, queued jobs with retries, observer, events and listeners | [README](backend/README.md) · [Interview guide](backend/docs/INTERVIEW_GUIDE.md) |
+| [`backend/`](backend) | Laravel 13, Sanctum, MySQL | Policies, global/group/route middleware, Form Request validation, a service provider with interface binding, queued jobs with retries, observer, events and listeners | [README](backend/README.md) · [Laravel guide](backend/docs/INTERVIEW_GUIDE.md) |
 | [`frontend/`](frontend) | Angular 21, TypeScript, RxJS | Standalone components, signals, functional guards and interceptors, lazy loading, reactive forms, live price with `switchMap`, `@defer` | [README](frontend/README.md) · [Angular guide](frontend/docs/ANGULAR_GUIDE.md) |
 
 ## How it works
