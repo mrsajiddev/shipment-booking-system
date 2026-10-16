@@ -66,67 +66,67 @@ npm start                                                      # terminal 3 -> h
   <tr>
     <td width="50%" valign="top">
       <b>Login</b><br>One-click demo accounts<br><br>
-      <img src="docs/screenshots/01-login.png" alt="Login">
+      <img src="docs/01-login.png" alt="Login">
     </td>
     <td width="50%" valign="top">
       <b>Server validation</b><br>Laravel's 422 message shown under the field<br><br>
-      <img src="docs/screenshots/02-login-validation-error.png" alt="Login validation error">
+      <img src="docs/02-login-validation-error.png" alt="Login validation error">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>Register</b><br>Client-side validation and password match<br><br>
-      <img src="docs/screenshots/03-register-validation.png" alt="Register validation">
+      <img src="docs/03-register-validation.png" alt="Register validation">
     </td>
     <td valign="top">
       <b>Dashboard</b><br>Count per status; click a card to filter the list<br><br>
-      <img src="docs/screenshots/04-dashboard.png" alt="Dashboard">
+      <img src="docs/04-dashboard.png" alt="Dashboard">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>Shipments list</b><br>Paginated results from the API<br><br>
-      <img src="docs/screenshots/05-shipments-list.png" alt="Shipments list">
+      <img src="docs/05-shipments-list.png" alt="Shipments list">
     </td>
     <td valign="top">
       <b>Search and filter</b><br>Debounced search; <code>switchMap</code> cancels old requests<br><br>
-      <img src="docs/screenshots/06-shipments-search-and-filter.png" alt="Search and filter">
+      <img src="docs/06-shipments-search-and-filter.png" alt="Search and filter">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>New shipment</b><br>Live price from the API, plus validation<br><br>
-      <img src="docs/screenshots/07-new-shipment-live-price-and-validation.png" alt="New shipment">
+      <img src="docs/07-new-shipment-live-price-and-validation.png" alt="New shipment">
     </td>
     <td valign="top">
       <b>Pending</b><br>The Laravel queue job is booking it in the background<br><br>
-      <img src="docs/screenshots/08-shipment-pending-queue-working.png" alt="Shipment pending">
+      <img src="docs/08-shipment-pending-queue-working.png" alt="Shipment pending">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>Booked</b><br>The page updated by itself when the job finished<br><br>
-      <img src="docs/screenshots/09-shipment-booked-by-queue-job.png" alt="Shipment booked">
+      <img src="docs/09-shipment-booked-by-queue-job.png" alt="Shipment booked">
     </td>
     <td valign="top">
       <b>Admin dashboard</b><br>Admins see every shipment<br><br>
-      <img src="docs/screenshots/10-admin-dashboard.png" alt="Admin dashboard">
+      <img src="docs/10-admin-dashboard.png" alt="Admin dashboard">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>Admin status change</b><br>Child component with input and output<br><br>
-      <img src="docs/screenshots/11-admin-status-change.png" alt="Admin status change">
+      <img src="docs/11-admin-status-change.png" alt="Admin status change">
     </td>
     <td valign="top">
       <b>Status updated</b><br>History timeline and a success toast<br><br>
-      <img src="docs/screenshots/12-admin-status-updated.png" alt="Status updated">
+      <img src="docs/12-admin-status-updated.png" alt="Status updated">
     </td>
   </tr>
   <tr>
     <td valign="top">
       <b>Mobile</b><br>Responsive layout<br><br>
-      <img src="docs/screenshots/13-mobile-dashboard.png" alt="Mobile dashboard" width="260">
+      <img src="docs/13-mobile-dashboard.png" alt="Mobile dashboard" width="260">
     </td>
     <td></td>
   </tr>
