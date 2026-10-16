@@ -1,0 +1,86 @@
+<a routerLink="/shipments" class="back">← Shipments</a>
+
+@if (loading()) {
+  <div class="card empty muted">Loading shipment…</div>
+} @else if (shipment(); as s) {
+  <section class="page-head">
+    <div>
+      <h1 class="mono">{{ s.tracking_number }}</h1>
+      <p class="muted">Created {{ s.created_at | date: 'd MMM y, h:mm a' }}</p>
+    </div>
+    <div class="head-right">
+      <app-status-badge [status]="s.status.value" [label]="s.status.label" />
+      <span class="price">{{ s.price | pkr }}</span>
+    </div>
+  </section>
+
+  @if (s.status.value === 'pending') {
+    <div class="alert alert--info">
+      <span class="spinner"></span>
+      Booking with the courier in the background… This page updates by itself.
+      <small class="muted">(Nothing happening? Make sure <code>php artisan queue:work</code> is running.)</small>
+    </div>
+  }
+
+  <div class="detail-grid">
+    <div class="card">
+      <h2>Sender</h2>
+      <p><strong>{{ s.sender.name }}</strong></p>
+      <p class="muted">{{ s.sender.city }}</p>
+    </div>
+
+    <div class="card">
+      <h2>Receiver</h2>
+      <p><strong>{{ s.receiver.name }}</strong></p>
+      <p>{{ s.receiver.phone }}</p>
+      <p class="muted">{{ s.receiver.address }}, {{ s.receiver.city }}</p>
+    </div>
+
+    <div class="card">
+      <h2>Parcel & courier</h2>
+      <p>Weight: <strong>{{ s.weight_kg }} kg</strong></p>
+      <p>Courier ref: <strong class="mono">{{ s.courier_reference ?? '—' }}</strong></p>
+      <p>Booked: {{ s.booked_at ? (s.booked_at | date: 'd MMM, h:mm a') : '—' }}</p>
+    </div>
+  </div>
+
+  <div class="detail-grid detail-grid--2">
+    <div class="card">
+      <h2>Status history</h2>
+      <!-- @defer: the timeline component's code is loaded only when this block scrolls into view. -->
+      @defer (on viewport) {
+        <app-history-timeline [items]="s.history ?? []" />
+      } @placeholder {
+        <p class="muted">Loading history…</p>
+      }
+    </div>
+
+    <div class="card">
+      <h2>Actions</h2>
+
+      <!-- Buttons follow the "can" block from Laravel's policy. -->
+      @if (s.can.update_status) {
+        <app-status-changer [current]="s.status.value" [busy]="busy()" (statusChange)="changeStatus($event)" />
+        <hr />
+      }
+
+      <div class="actions">
+        @if (s.can.cancel) {
+          <button type="button" class="btn btn--danger" [disabled]="busy()" (click)="cancel()">Cancel shipment</button>
+        }
+        <button type="button" class="btn btn--ghost" (click)="refresh()">Refresh</button>
+      </div>
+
+      @if (!s.can.cancel && !s.can.update_status) {
+        <p class="muted small">No actions are available for this shipment.</p>
+      }
+    </div>
+  </div>
+} @else if (notFound()) {
+  <div class="card empty">
+    <p>This shipment does not exist, or you are not allowed to see it.</p>
+    <a routerLink="/shipments" class="btn btn--primary btn--sm">Back to shipments</a>
+  </div>
+} @else {
+  <div class="card empty muted">Could not load this shipment.</div>
+}

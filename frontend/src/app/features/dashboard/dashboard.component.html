@@ -1,0 +1,44 @@
+<section class="page-head">
+  <div>
+    <h1>Hello, {{ auth.user()?.name }}</h1>
+    <p class="muted">
+      @if (auth.isAdmin()) {
+        You are viewing every shipment in the system.
+      } @else {
+        Here is a summary of your shipments.
+      }
+    </p>
+  </div>
+  <a routerLink="/shipments/new" class="btn btn--primary">+ New shipment</a>
+</section>
+
+@if (stats() === undefined) {
+  <div class="stats">
+    @for (i of [1, 2, 3, 4, 5]; track i) {
+      <div class="card stat stat--loading"></div>
+    }
+  </div>
+} @else if (stats() === null) {
+  <div class="alert alert--error">Could not load the dashboard. Please refresh the page.</div>
+} @else {
+  <div class="highlight card">
+    <div>
+      <span class="highlight__num">{{ stats()?.total }}</span>
+      <span class="muted">shipments in total</span>
+    </div>
+    <div>
+      <span class="highlight__num">{{ activeCount() }}</span>
+      <span class="muted">still on the way</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    @for (card of cards(); track card.value) {
+      <a class="card stat" [routerLink]="['/shipments']" [queryParams]="{ status: card.value }">
+        <app-status-badge [status]="card.value" />
+        <span class="stat__num">{{ card.count }}</span>
+        <span class="stat__link">View list →</span>
+      </a>
+    }
+  </div>
+}

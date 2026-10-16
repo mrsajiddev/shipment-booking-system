@@ -1,0 +1,95 @@
+<section class="page-head">
+  <div>
+    <a routerLink="/shipments" class="back">← Shipments</a>
+    <h1>New shipment</h1>
+  </div>
+</section>
+
+<div class="create-layout">
+  <form class="card form-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (formError(); as error) {
+      <div class="alert alert--error">{{ error }}</div>
+    }
+
+    <h2>Sender</h2>
+    <div class="grid-2">
+      <label class="field">
+        <span>Sender name</span>
+        <input type="text" formControlName="sender_name" />
+        <app-field-error [control]="form.controls.sender_name" label="Sender name" />
+      </label>
+      <label class="field">
+        <span>From city</span>
+        <select formControlName="sender_city">
+          @for (city of cities; track city) {
+            <option [value]="city">{{ city }}</option>
+          }
+        </select>
+        <app-field-error [control]="form.controls.sender_city" label="City" />
+      </label>
+    </div>
+
+    <h2>Receiver</h2>
+    <div class="grid-2">
+      <label class="field">
+        <span>Receiver name</span>
+        <input type="text" formControlName="receiver_name" />
+        <app-field-error [control]="form.controls.receiver_name" label="Receiver name" />
+      </label>
+      <label class="field">
+        <span>Mobile number</span>
+        <input type="tel" formControlName="receiver_phone" placeholder="03001234567" inputmode="numeric" />
+        <app-field-error [control]="form.controls.receiver_phone" label="Mobile number" />
+      </label>
+    </div>
+
+    <label class="field">
+      <span>Address</span>
+      <input type="text" formControlName="receiver_address" placeholder="House, street, area" />
+      <app-field-error [control]="form.controls.receiver_address" label="Address" />
+    </label>
+
+    <div class="grid-2">
+      <label class="field">
+        <span>To city</span>
+        <select formControlName="receiver_city">
+          <option value="" disabled>Choose a city</option>
+          @for (city of cities; track city) {
+            <option [value]="city">{{ city }}</option>
+          }
+        </select>
+        <app-field-error [control]="form.controls.receiver_city" label="City" />
+      </label>
+      <label class="field">
+        <span>Weight (kg)</span>
+        <input type="number" formControlName="weight_kg" min="0.1" max="50" step="0.1" />
+        <app-field-error [control]="form.controls.weight_kg" label="Weight" />
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <a routerLink="/shipments" class="btn btn--ghost">Cancel</a>
+      <button type="submit" class="btn btn--primary" [disabled]="saving()">
+        {{ saving() ? 'Booking…' : 'Book shipment' }}
+      </button>
+    </div>
+  </form>
+
+  <aside class="card quote">
+    <h2>Price</h2>
+    @if (quote(); as q) {
+      <dl>
+        <div><dt>Base fee</dt><dd>{{ q.base_fee | pkr }}</dd></div>
+        <div><dt>Weight charge</dt><dd>{{ q.weight_charge | pkr }}</dd></div>
+        <div><dt>Route</dt><dd>{{ q.same_city ? 'Same city' : 'Out of city (×1.5)' }}</dd></div>
+      </dl>
+      <div class="quote__total">
+        <span>Total</span>
+        <strong>{{ q.total | pkr }}</strong>
+      </div>
+    } @else {
+      <p class="muted">Choose both cities and a weight to see the price.</p>
+    }
+    <p class="hint">The price is calculated by the server, so it always matches what you pay.</p>
+  </aside>
+</div>

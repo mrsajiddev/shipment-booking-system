@@ -1,0 +1,73 @@
+<section class="page-head">
+  <div>
+    <h1>Shipments</h1>
+    <p class="muted">Search by tracking number or receiver name.</p>
+  </div>
+  <a routerLink="/shipments/new" class="btn btn--primary">+ New shipment</a>
+</section>
+
+<form class="card filters" [formGroup]="filters">
+  <input type="search" formControlName="search" placeholder="Search e.g. SHP2610 or Ahmed" aria-label="Search" />
+  <select formControlName="status" aria-label="Status">
+    <option value="">All statuses</option>
+    @for (s of statuses; track s.value) {
+      <option [value]="s.value">{{ s.label }}</option>
+    }
+  </select>
+  <button type="button" class="btn btn--ghost" (click)="clearFilters()">Clear</button>
+</form>
+
+<div class="card table-card" [class.is-loading]="loading()">
+  @if (result(); as page) {
+    @if (page.data.length) {
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tracking #</th>
+            <th>Receiver</th>
+            <th>City</th>
+            <th class="num">Weight</th>
+            <th class="num">Price</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (s of page.data; track s.id) {
+            <tr>
+              <td><a [routerLink]="['/shipments', s.id]" class="mono">{{ s.tracking_number }}</a></td>
+              <td>{{ s.receiver.name }}</td>
+              <td>{{ s.receiver.city }}</td>
+              <td class="num">{{ s.weight_kg }} kg</td>
+              <td class="num">{{ s.price | pkr }}</td>
+              <td><app-status-badge [status]="s.status.value" [label]="s.status.label" /></td>
+              <td class="muted">{{ s.created_at | date: 'd MMM, h:mm a' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="pager">
+        <span class="muted">Showing {{ page.meta.from }}–{{ page.meta.to }} of {{ page.meta.total }}</span>
+        <div class="pager__buttons">
+          <button type="button" class="btn btn--ghost btn--sm"
+                  [disabled]="page.meta.current_page <= 1 || loading()"
+                  (click)="goToPage(page.meta.current_page - 1)">← Previous</button>
+          <span>Page {{ page.meta.current_page }} of {{ page.meta.last_page }}</span>
+          <button type="button" class="btn btn--ghost btn--sm"
+                  [disabled]="page.meta.current_page >= page.meta.last_page || loading()"
+                  (click)="goToPage(page.meta.current_page + 1)">Next →</button>
+        </div>
+      </div>
+    } @else {
+      <div class="empty">
+        <p>No shipments found.</p>
+        <a routerLink="/shipments/new" class="btn btn--primary btn--sm">Book your first shipment</a>
+      </div>
+    }
+  } @else if (loading()) {
+    <div class="empty muted">Loading shipments…</div>
+  } @else {
+    <div class="empty muted">Could not load shipments.</div>
+  }
+</div>

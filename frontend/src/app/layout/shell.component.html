@@ -1,0 +1,26 @@
+<header class="topbar">
+  <div class="container topbar__inner">
+    <a routerLink="/dashboard" class="brand">
+      <span class="brand__mark">S</span>
+      Shipment Portal
+    </a>
+
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/shipments" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Shipments</a>
+      <a routerLink="/shipments/new" routerLinkActive="active">New shipment</a>
+    </nav>
+
+    @if (auth.user(); as user) {
+      <div class="user">
+        <span class="user__name">{{ user.name }}</span>
+        <span class="role" [class.role--admin]="auth.isAdmin()">{{ user.role }}</span>
+        <button type="button" class="btn btn--ghost btn--sm" (click)="auth.logout()">Log out</button>
+      </div>
+    }
+  </div>
+</header>
+
+<main class="container page">
+  <router-outlet />
+</main>
